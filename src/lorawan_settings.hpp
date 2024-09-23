@@ -14,9 +14,9 @@
 
 extern lmic_t SETTINGS_LMIC;
 extern Preferences lorawan_preferences;
-
+extern lmic_t LMIC;
 void lorawan_preferences_init();
-void lmic_save(const lmic_t &value);
+void lmic_save();
 bool lmic_init_needed();
-lmic_t load_lmic();
+void load_lmic();
 #endif
