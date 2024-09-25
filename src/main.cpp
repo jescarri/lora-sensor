@@ -8,16 +8,21 @@
 #define VCC_ENA_PIN 13
 #define START_WEB_CONFIG_PIN 16
 #define SOIL_SENSOR_PIN 34 // ADC1_CH6
+#define MAX_SENSOR_READ 10
 
 lmic_t SETTINGS_LMIC;
 Preferences lorawan_preferences;
+extern CayenneLPP lpp(MAX_PAYLOAD_SIZE);
+
 // Active in LOW, normal operation is HIGH
 bool startWebConfig = false;
 
-struct sensorData {
-  float soil;
-  float vBat;
-};
+// This needs to come from calibration data.
+const int AirValue = 790;
+const int WaterValue = 390;
+
+sensorData sd;
+
 static const u1_t PROGMEM APPEUI[8] = TTN_APPEUI;
 static const u1_t PROGMEM DEVEUI[8] = TTN_DEVEUI;
 static const u1_t PROGMEM APPKEY[16] = TTN_APPKEY;
@@ -26,6 +31,7 @@ void os_getDevEui(u1_t *buf) { memcpy_P(buf, DEVEUI, 8); }
 void os_getDevKey(u1_t *buf) { memcpy_P(buf, APPKEY, 16); }
 void PrintRuntime();
 void GoDeepSleep();
+void ReadSensors();
 
 volatile bool enableSleep_ = true;
 unsigned long entry;
@@ -50,12 +56,19 @@ const unsigned TX_INTERVAL = 3600;
 void setup() {
   pinMode(VCC_ENA_PIN, OUTPUT);
   digitalWrite(VCC_ENA_PIN, HIGH);
-  Serial.begin(115200);
   pinMode(START_WEB_CONFIG_PIN, INPUT);
+
+  // analogSetCycles(20);
+  // analogSetSamples(10);
+  // analogSetAttenuation(ADC_11db);
+
+  Serial.begin(115200);
+
   startWebConfig = !digitalRead(START_WEB_CONFIG_PIN);
   Serial.print("Webconf status: ");
   Serial.println(startWebConfig);
-
+  // Read the sensors
+  ReadSensors();
   lorawan_preferences_init();
   PrintLMICVersion();
   // LMIC init
@@ -154,4 +167,16 @@ void GoDeepSleep() {
   Serial.flush();
   esp_sleep_enable_timer_wakeup(TX_INTERVAL * 1000000);
   esp_deep_sleep_start();
+}
+
+void ReadSensors() {
+  sd.soilMoisturePercentage = 0;
+  sd.soilMoistureValue = 0;
+  sd.vBat = 0;
+  for (int i = 0; i < MAX_SENSOR_READ; i++) {
+    sd.soilMoistureValue += analogRead(SOIL_SENSOR_PIN);
+  }
+  sd.soilMoistureValue = sd.soilMoistureValue / 10;
+  sd.soilMoisturePercentage =
+      map(sd.soilMoistureValue, AirValue, WaterValue, 0, 100);
 }
