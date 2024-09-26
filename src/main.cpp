@@ -12,7 +12,7 @@
 
 lmic_t SETTINGS_LMIC;
 Preferences lorawan_preferences;
-extern CayenneLPP lpp(MAX_PAYLOAD_SIZE);
+CayenneLPP lpp(MAX_PAYLOAD_SIZE);
 
 // Active in LOW, normal operation is HIGH
 bool startWebConfig = false;
@@ -57,18 +57,11 @@ void setup() {
   pinMode(VCC_ENA_PIN, OUTPUT);
   digitalWrite(VCC_ENA_PIN, HIGH);
   pinMode(START_WEB_CONFIG_PIN, INPUT);
-
-  // analogSetCycles(20);
-  // analogSetSamples(10);
-  // analogSetAttenuation(ADC_11db);
-
   Serial.begin(115200);
 
   startWebConfig = !digitalRead(START_WEB_CONFIG_PIN);
   Serial.print("Webconf status: ");
   Serial.println(startWebConfig);
-  // Read the sensors
-  ReadSensors();
   lorawan_preferences_init();
   PrintLMICVersion();
   // LMIC init
@@ -90,9 +83,12 @@ void setup() {
 
   do_send(&sendjob);
   entry = millis();
+  // Read the sensors
+  ReadSensors();
 }
 
 void loop() {
+
   static unsigned long lastPrintTime = 0;
   os_runloop_once();
   const bool timeCriticalJobs =
@@ -102,15 +98,9 @@ void loop() {
       !(LMIC.opmode & OP_TXRXPEND)) {
     Serial.print(F("Can go sleep "));
     LoraWANPrintLMICOpmode();
-    unsigned long now = millis();
-
-    LMIC.globalDutyAvail = 0; // - ((now / 1000.0 + TX_INTERVAL) * 1000);
-    if (LMIC.globalDutyAvail < 0) {
-      LMIC.globalDutyAvail = 0;
-    }
     lmic_save();
     GoDeepSleep();
-  } else if (lastPrintTime + 2000 < millis()) {
+  } else if (lastPrintTime + 1000 < millis()) {
     Serial.print(F("Cannot sleep "));
     Serial.print(F("TimeCriticalJobs: "));
     Serial.print(timeCriticalJobs);
@@ -121,16 +111,9 @@ void loop() {
     lastPrintTime = millis();
   }
   if (millis() - entry > 60000) {
-    // Serial.println("Reset LMIC");
-    // LMIC.seqnoUp = 0;
-    unsigned long now = millis();
-
-    LMIC.globalDutyAvail = 0; //- ((now / 1000.0 + TX_INTERVAL) * 1000);
-    if (LMIC.globalDutyAvail < 0) {
-      LMIC.globalDutyAvail = 0;
-    }
-
-    lmic_save();
+    // ToDo: Delete LMIC config from nvram
+    // so it joins the wan after next run
+    resetLmic();
     GoDeepSleep();
   }
 }
@@ -174,9 +157,10 @@ void ReadSensors() {
   sd.soilMoistureValue = 0;
   sd.vBat = 0;
   for (int i = 0; i < MAX_SENSOR_READ; i++) {
-    sd.soilMoistureValue += analogRead(SOIL_SENSOR_PIN);
+    float a = analogRead(SOIL_SENSOR_PIN);
+    sd.soilMoistureValue = a + sd.soilMoistureValue;
   }
-  sd.soilMoistureValue = sd.soilMoistureValue / 10;
+  sd.soilMoistureValue = sd.soilMoistureValue / MAX_SENSOR_READ;
   sd.soilMoisturePercentage =
       map(sd.soilMoistureValue, AirValue, WaterValue, 0, 100);
 }

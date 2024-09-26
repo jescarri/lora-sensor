@@ -225,7 +225,7 @@ void onEvent(ev_t ev) {
 void do_send(osjob_t *j) {
   static uint8_t mydata[] = "Test";
   lpp.reset();
-  lpp.addAnalogInput(0, sd.soilMoistureValue);
+  lpp.addGenericSensor(0, sd.soilMoistureValue);
   lpp.addVoltage(1, sd.vBat);
   lpp.addPercentage(2, sd.soilMoisturePercentage);
   // Check if there is not a current TX/RX job running

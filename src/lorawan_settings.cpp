@@ -10,6 +10,7 @@ bool lmic_init_needed() {
 }
 
 void lmic_save() {
+  LMIC.globalDutyAvail = 0;
   size_t a =
       lorawan_preferences.putBytes(LMIC_BYTES_KEY_NAME, &LMIC, sizeof(LMIC));
   Serial.print("Saved: ");
@@ -26,3 +27,5 @@ void load_lmic() {
   LoraWANDebug(LMIC);
   Serial.println("END of LoadLmic");
 }
+
+void resetLmic() { lorawan_preferences.remove(LMIC_BYTES_KEY_NAME); }

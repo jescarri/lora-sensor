@@ -19,4 +19,5 @@ void lorawan_preferences_init();
 void lmic_save();
 bool lmic_init_needed();
 void load_lmic();
+void resetLmic();
 #endif
