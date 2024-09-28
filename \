@@ -1,0 +1,42 @@
+#include "menu.hpp"
+#include "lorawan_settings.hpp"
+
+bool configPresent() {
+  if (lorawan_preferences.isKey(INIT_KEY)) {
+    // Read the preferences and copy values to custom parameter
+    memcpy(char_ttn_app_eui, lorawan_preferences.getChar(APP_EUID_KEY),
+           APP_EUID_KEY);
+    return true;
+  }
+  return false;
+}
+
+void initMenu() {
+  WiFiManagerParameter ttn_app_eui("ttn_app_eui", "app eui lsb",
+                                   char_ttn_app_eui, "0000000000000000",
+                                   APP_EUID_LEN);
+  wifiManager.setSaveConfigCallback(saveConfigCallback);
+  wifiManager.addParameter(&ttn_app_eui);
+}
+
+void saveConfigCallback() { Serial.println("Should save config"); }
+// void lmic_save() {
+//   LMIC.globalDutyAvail = 0;
+//   size_t a =
+//       lorawan_preferences.putBytes(LMIC_BYTES_KEY_NAME, &LMIC, sizeof(LMIC));
+//   Serial.print("Saved: ");
+//   Serial.println(a);
+// }
+//
+// void load_lmic() {
+//   Serial.println("Start of Load LMIC");
+//   size_t schlen = lorawan_preferences.getBytesLength(LMIC_BYTES_KEY_NAME);
+//   char buffer[schlen];
+//   lorawan_preferences.getBytes(LMIC_BYTES_KEY_NAME, buffer, schlen);
+//   lmic_t *tmp = (lmic_t *)buffer;
+//   LMIC = *tmp;
+//   LoraWANDebug(LMIC);
+//   Serial.println("END of LoadLmic");
+// }
+//
+// void resetLmic() { lorawan_preferences.remove(LMIC_BYTES_KEY_NAME); }

@@ -3,6 +3,7 @@
 
 #include "lorawan.hpp"
 #include "lorawan_settings.hpp"
+#include "menu.hpp"
 #include <hal/hal.h>
 
 #define VCC_ENA_PIN 13
@@ -58,11 +59,15 @@ void setup() {
   digitalWrite(VCC_ENA_PIN, HIGH);
   pinMode(START_WEB_CONFIG_PIN, INPUT);
   Serial.begin(115200);
-
+  lorawan_preferences_init();
+  initMenu();
   startWebConfig = !digitalRead(START_WEB_CONFIG_PIN);
   Serial.print("Webconf status: ");
   Serial.println(startWebConfig);
-  lorawan_preferences_init();
+  if (startWebConfig == true) {
+    startWebConf();
+  }
+
   PrintLMICVersion();
   // LMIC init
   os_init();
