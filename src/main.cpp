@@ -57,7 +57,7 @@ const unsigned TX_INTERVAL = 3600;
 
 void setup() {
   pinMode(VCC_ENA_PIN, OUTPUT);
-  //  digitalWrite(VCC_ENA_PIN, HIGH);
+  digitalWrite(VCC_ENA_PIN, HIGH);
   pinMode(START_WEB_CONFIG_PIN, INPUT);
   WiFi.mode(WIFI_OFF);
   btStop();
