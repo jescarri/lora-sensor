@@ -1,19 +1,38 @@
 #include "menu.hpp"
 #include "lorawan_settings.hpp"
 
-const char *menu[] = {"param"};
-char char_ttn_app_eui[40] = "0000000000000000";
-WiFiManager wifiManager;
-WiFiManagerParameter ttn_app_eui = WiFiManagerParameter(
-    "euid", "app eui lsb", char_ttn_app_eui, sizeof(char_ttn_app_eui));
+char char_ttn_app_eui[MAX_LORAWAN_CONF_CHAR_LEN];
+char char_ttn_dev_eui[MAX_LORAWAN_CONF_CHAR_LEN];
+char char_ttn_app_key[MAX_LORAWAN_CONF_CHAR_LEN];
 
-bool configPresent() {
-  if (lorawan_preferences.isKey(INIT_KEY)) {
-    // Read the preferences and copy values to custom parameter
-    // char_ttn_app_eui = lorawan_preferences.getChar(APP_EUID_KEY);
-    return true;
+const char *menu[] = {"param"};
+
+WiFiManager wifiManager;
+WiFiManagerParameter *ttn_app_eui;
+WiFiManagerParameter *ttn_dev_eui;
+WiFiManagerParameter *ttn_app_key;
+
+void loadSetings() {
+  if (lorawan_preferences.isKey("app_eui")) {
+    strcpy(char_ttn_app_eui, lorawan_preferences.getString("app_eui").c_str());
+    Serial.println(char_ttn_app_eui);
+  } else {
+    strcpy(char_ttn_app_eui, "00000000");
   }
-  return false;
+
+  if (lorawan_preferences.isKey("dev_eui")) {
+    strcpy(char_ttn_dev_eui, lorawan_preferences.getString("dev_eui").c_str());
+    Serial.println(char_ttn_dev_eui);
+  } else {
+    strcpy(char_ttn_dev_eui, "00000000");
+  }
+
+  if (lorawan_preferences.isKey("app_key")) {
+    strcpy(char_ttn_app_key, lorawan_preferences.getString("app_key").c_str());
+    Serial.println(char_ttn_app_key);
+  } else {
+    strcpy(char_ttn_app_key, "00000000000000000000000000000000");
+  }
 }
 
 void initMenu() {
@@ -21,25 +40,38 @@ void initMenu() {
   wifiManager.setMinimumSignalQuality(90);
   wifiManager.setRemoveDuplicateAPs(true);
   wifiManager.setSaveParamsCallback(saveConfigCallback);
-
+  loadSetings();
+  ttn_app_eui = new WiFiManagerParameter(
+      "app_eui", "AppEUI lsb", char_ttn_app_eui, MAX_LORAWAN_CONF_CHAR_LEN);
+  ttn_dev_eui = new WiFiManagerParameter(
+      "dev_eui", "DevEUI lsb", char_ttn_dev_eui, MAX_LORAWAN_CONF_CHAR_LEN);
+  ttn_app_key = new WiFiManagerParameter(
+      "app_key", "APP Key msb", char_ttn_app_key, MAX_LORAWAN_CONF_CHAR_LEN);
+  wifiManager.addParameter(ttn_app_eui);
+  wifiManager.addParameter(ttn_dev_eui);
+  wifiManager.addParameter(ttn_app_key);
   wifiManager.setMenu(menu, sizeof(menu) / sizeof(menu[0]));
-  wifiManager.addParameter(&ttn_app_eui);
 }
 
 void startWebConf() {
-  wifiManager.setConfigPortalTimeout(120);
+  initMenu();
+  wifiManager.setConfigPortalTimeout(300);
   if (!wifiManager.startConfigPortal("lora-node")) {
     Serial.println("failed to connect and hit timeout");
     delay(3000);
     // reset and try again, or maybe put it to deep sleep
-    ESP.restart();
     delay(5000);
+    ESP.restart();
   }
 }
 
 void saveConfigCallback() {
   Serial.println("Should save config");
-  ESP.restart();
+  lorawan_preferences.putString("app_eui", ttn_app_eui->getValue());
+  lorawan_preferences.putString("dev_eui", ttn_dev_eui->getValue());
+  Serial.print("Config: ");
+  Serial.println(lorawan_preferences.getString("app_euid").c_str());
+  //  ESP.restart();
 }
 
 void configModeCallback(WiFiManager *myWiFiManager) {

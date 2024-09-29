@@ -6,14 +6,11 @@
 #include <lmic.h>
 
 #define CONFIG_TIMEOUT_SECONDS 120
-#define APP_EUID_KEY "euid"
-#define INIT_KEY "ok"
-#define PROVISION_NAMESPACE "wan"
 #define APP_EUID_LEN 17
 
 extern Preferences lorawan_preferences;
 
-bool configPresent();
+void loadSetings();
 void saveConfigCallback();
 void configModeCallback(WiFiManager *myWiFiManager);
 

@@ -29,3 +29,27 @@ void load_lmic() {
 }
 
 void resetLmic() { lorawan_preferences.remove(LMIC_BYTES_KEY_NAME); }
+
+bool lorawanConfigPresent() {
+  return lorawan_preferences.isKey(LORAWAN_CONFIG_PRESENT_KEY);
+}
+
+void saveDevEUID(char dev_euid[]) {
+  Serial.println("Savind device EUID");
+  lorawan_preferences.putString("dev_euid", dev_euid);
+}
+
+u1_t *getAppEUID() {
+  char appEUIDstr[50] = {};
+  strcpy(appEUIDstr, lorawan_preferences.getString("app_euid").c_str());
+  uint8_t len_buffer = 0;
+  static u1_t appEUID[8];
+  for (int i = 0; i < strlen(appEUIDstr); i += 2) {
+    char tmp = appEUIDstr[i + 3];
+    appEUIDstr[i + 3] = 0;
+    appEUID[len_buffer] = strtoul((const char *)appEUID, NULL, 16);
+    len_buffer++;
+    appEUIDstr[i + 3] = tmp;
+  }
+  return appEUID;
+}

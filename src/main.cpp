@@ -1,3 +1,4 @@
+#include "WiFi.h"
 #include <Preferences.h>
 #include <lmic.h>
 
@@ -56,11 +57,13 @@ const unsigned TX_INTERVAL = 3600;
 
 void setup() {
   pinMode(VCC_ENA_PIN, OUTPUT);
-  digitalWrite(VCC_ENA_PIN, HIGH);
+  //  digitalWrite(VCC_ENA_PIN, HIGH);
   pinMode(START_WEB_CONFIG_PIN, INPUT);
+  WiFi.mode(WIFI_OFF);
+  btStop();
   Serial.begin(115200);
+
   lorawan_preferences_init();
-  initMenu();
   startWebConfig = !digitalRead(START_WEB_CONFIG_PIN);
   Serial.print("Webconf status: ");
   Serial.println(startWebConfig);
