@@ -25,12 +25,6 @@ const int WaterValue = 390;
 
 sensorData sd;
 
-static const u1_t PROGMEM APPEUI[8] = TTN_APPEUI;
-static const u1_t PROGMEM DEVEUI[8] = TTN_DEVEUI;
-static const u1_t PROGMEM APPKEY[16] = TTN_APPKEY;
-void os_getArtEui(u1_t *buf) { memcpy_P(buf, APPEUI, 8); }
-void os_getDevEui(u1_t *buf) { memcpy_P(buf, DEVEUI, 8); }
-void os_getDevKey(u1_t *buf) { memcpy_P(buf, APPKEY, 16); }
 void PrintRuntime();
 void GoDeepSleep();
 void ReadSensors();
@@ -64,10 +58,16 @@ void setup() {
   Serial.begin(115200);
 
   lorawan_preferences_init();
+  Serial.print("LMIC CONFIG Present: ");
+  Serial.println(lorawanConfigPresent());
   startWebConfig = !digitalRead(START_WEB_CONFIG_PIN);
   Serial.print("Webconf status: ");
   Serial.println(startWebConfig);
-  if (startWebConfig == true) {
+  bool otaa_cfg = lorawan_preferences.isKey("ttn_otaa_config");
+  Serial.print("otaa_config_done: ");
+  Serial.println(otaa_cfg);
+  if ((startWebConfig == true) || (!otaa_cfg)) {
+    resetLmic();
     startWebConf();
   }
 

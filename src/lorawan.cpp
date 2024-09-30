@@ -1,4 +1,8 @@
 #include "lorawan.hpp"
+#include "lorawan_settings.hpp"
+
+static const u1_t PROGMEM DEVEUI[8] = TTN_DEVEUI;
+static const u1_t PROGMEM APPKEY[16] = TTN_APPKEY;
 
 void LoraWANPrintLMICOpmode(void) {
   Serial.print(F("LMIC.opmode: "));
@@ -240,4 +244,72 @@ void do_send(osjob_t *j) {
     Serial.println(F("Packet queued"));
   }
   // Next TX is scheduled after TX_COMPLETE event.
+}
+
+// ToDo: Refactor hex string to u1_t array conversion
+void os_getArtEui(u1_t *buf) {
+  char char_app_eui[MAX_LORAWAN_CONF_CHAR_LEN];
+  strcpy(char_app_eui, lorawan_preferences.getString("app_eui").c_str());
+  u1_t app_eui[8];
+  int c = 0;
+  for (int i = 0; i < 16; i += 2) {
+    char t[3];
+    t[0] = char_app_eui[i];
+    t[1] = char_app_eui[i + 1];
+    t[2] = 0;
+    app_eui[c] = strtoul(t, NULL, 16);
+    c++;
+  }
+  Serial.print("app_eui: ");
+  for (int i = 0; i < 8; i++) {
+    Serial.print(app_eui[i], HEX);
+  }
+  Serial.println("");
+  memcpy_P(buf, app_eui, 8);
+}
+void os_getDevEui(u1_t *buf) {
+  char char_dev_eui[MAX_LORAWAN_CONF_CHAR_LEN];
+  strcpy(char_dev_eui, lorawan_preferences.getString("dev_eui").c_str());
+  u1_t dev_eui[8];
+  int c = 0;
+  for (int i = 0; i < 16; i += 2) {
+    char t[3];
+    t[0] = char_dev_eui[i];
+    t[1] = char_dev_eui[i + 1];
+    t[2] = 0;
+    dev_eui[c] = strtoul(t, NULL, 16);
+    c++;
+  }
+  Serial.print("dev_eui: ");
+  for (int i = 0; i < 8; i++) {
+    Serial.print(dev_eui[i], HEX);
+  }
+  Serial.println("");
+
+  memcpy_P(buf, dev_eui, 8);
+}
+void os_getDevKey(u1_t *buf) {
+  char char_app_key[MAX_LORAWAN_CONF_CHAR_LEN];
+  strcpy(char_app_key, lorawan_preferences.getString("app_key").c_str());
+  u1_t app_key[16];
+  Serial.print("Read Data: ");
+  Serial.println(char_app_key);
+  int c = 0;
+  for (int i = 0; i < 32; i += 2) {
+    char t[3];
+    t[0] = char_app_key[i];
+    t[1] = char_app_key[i + 1];
+    t[2] = 0;
+    Serial.print(t);
+    app_key[c] = strtoul(t, NULL, 16);
+    c++;
+  }
+  Serial.println("");
+  Serial.print("C Counter: ");
+  Serial.println(c);
+  for (int i = 0; i < 16; i++) {
+    Serial.print(app_key[i], HEX);
+  }
+  Serial.println("");
+  memcpy_P(buf, app_key, 16);
 }

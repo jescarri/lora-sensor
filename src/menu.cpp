@@ -58,9 +58,6 @@ void startWebConf() {
   wifiManager.setConfigPortalTimeout(300);
   if (!wifiManager.startConfigPortal("lora-node")) {
     Serial.println("failed to connect and hit timeout");
-    delay(3000);
-    // reset and try again, or maybe put it to deep sleep
-    delay(5000);
     ESP.restart();
   }
 }
@@ -69,9 +66,10 @@ void saveConfigCallback() {
   Serial.println("Should save config");
   lorawan_preferences.putString("app_eui", ttn_app_eui->getValue());
   lorawan_preferences.putString("dev_eui", ttn_dev_eui->getValue());
-  Serial.print("Config: ");
-  Serial.println(lorawan_preferences.getString("app_euid").c_str());
-  //  ESP.restart();
+  lorawan_preferences.putString("app_key", ttn_app_key->getValue());
+  lorawan_preferences.putBool("ttn_otaa_config", true);
+
+  // ESP.restart();
 }
 
 void configModeCallback(WiFiManager *myWiFiManager) {

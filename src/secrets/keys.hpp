@@ -1,9 +1,5 @@
 #ifndef secrets_keys_hpp
 #define secrets_keys_hpp
-#define TTN_APPEUI                                                             \
-  {                                                                            \
-    0xAA, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00                             \
-  } // TTN Application EUI with "lsb"
 #define TTN_DEVEUI                                                             \
   {                                                                            \
     0xD1, 0xA6, 0x06, 0xD0, 0x7E, 0xD5, 0xB3, 0x70                             \
