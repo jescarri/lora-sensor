@@ -1,4 +1,6 @@
 #include "WiFi.h"
+#include "driver/adc.h"
+
 #include <Preferences.h>
 #include <lmic.h>
 
@@ -9,8 +11,6 @@
 
 #define VCC_ENA_PIN 13
 #define START_WEB_CONFIG_PIN 16
-#define SOIL_SENSOR_PIN 34 // ADC1_CH6
-#define MAX_SENSOR_READ 10
 
 lmic_t SETTINGS_LMIC;
 Preferences lorawan_preferences;
@@ -18,12 +18,6 @@ CayenneLPP lpp(MAX_PAYLOAD_SIZE);
 
 // Active in LOW, normal operation is HIGH
 bool startWebConfig = false;
-
-// This needs to come from calibration data.
-const int AirValue = 790;
-const int WaterValue = 390;
-
-sensorData sd;
 
 void PrintRuntime();
 void GoDeepSleep();
@@ -56,7 +50,8 @@ void setup() {
   WiFi.mode(WIFI_OFF);
   btStop();
   Serial.begin(115200);
-
+  adc_power_acquire();
+  randomSeed(analogRead(0));
   lorawan_preferences_init();
   Serial.print("LMIC CONFIG Present: ");
   Serial.println(lorawanConfigPresent());
@@ -91,12 +86,9 @@ void setup() {
 
   do_send(&sendjob);
   entry = millis();
-  // Read the sensors
-  ReadSensors();
 }
 
 void loop() {
-
   static unsigned long lastPrintTime = 0;
   os_runloop_once();
   const bool timeCriticalJobs =
@@ -135,6 +127,8 @@ void PrintRuntime() {
 
 void GoDeepSleep() {
   digitalWrite(VCC_ENA_PIN, LOW);
+  WiFi.mode(WIFI_OFF);
+  btStop();
   gpio_reset_pin(GPIO_NUM_0);
   gpio_reset_pin(GPIO_NUM_2);
   gpio_reset_pin(GPIO_NUM_4);
@@ -153,22 +147,10 @@ void GoDeepSleep() {
   gpio_reset_pin(GPIO_NUM_37);
   gpio_reset_pin(GPIO_NUM_38);
   gpio_reset_pin(GPIO_NUM_39);
+  adc_power_release();
   Serial.println(F("Go DeepSleep"));
   PrintRuntime();
   Serial.flush();
   esp_sleep_enable_timer_wakeup(TX_INTERVAL * 1000000);
   esp_deep_sleep_start();
-}
-
-void ReadSensors() {
-  sd.soilMoisturePercentage = 0;
-  sd.soilMoistureValue = 0;
-  sd.vBat = 0;
-  for (int i = 0; i < MAX_SENSOR_READ; i++) {
-    float a = analogRead(SOIL_SENSOR_PIN);
-    sd.soilMoistureValue = a + sd.soilMoistureValue;
-  }
-  sd.soilMoistureValue = sd.soilMoistureValue / MAX_SENSOR_READ;
-  sd.soilMoisturePercentage =
-      map(sd.soilMoistureValue, AirValue, WaterValue, 0, 100);
 }

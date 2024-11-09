@@ -3,6 +3,7 @@
 
 static const u1_t PROGMEM DEVEUI[8] = TTN_DEVEUI;
 static const u1_t PROGMEM APPKEY[16] = TTN_APPKEY;
+sensorData sd;
 
 void LoraWANPrintLMICOpmode(void) {
   Serial.print(F("LMIC.opmode: "));
@@ -229,6 +230,7 @@ void onEvent(ev_t ev) {
 void do_send(osjob_t *j) {
   static uint8_t mydata[] = "Test";
   lpp.reset();
+  ReadSensors();
   lpp.addGenericSensor(0, sd.soilMoistureValue);
   lpp.addVoltage(1, sd.vBat);
   lpp.addPercentage(2, sd.soilMoisturePercentage);
@@ -312,4 +314,24 @@ void os_getDevKey(u1_t *buf) {
   }
   Serial.println("");
   memcpy_P(buf, app_key, 16);
+}
+
+void ReadSensors() {
+  sd.soilMoisturePercentage = 0;
+  sd.soilMoistureValue = 0;
+  long r = random(3000, 4000);
+  sd.vBat = (float)r / 1000.0;
+  for (int i = 0; i < MAX_SENSOR_READ; i++) {
+    float a = analogRead(SOIL_SENSOR_PIN);
+    sd.soilMoistureValue += a;
+    delay(10);
+  }
+  float t = sd.soilMoistureValue / MAX_SENSOR_READ;
+  sd.soilMoistureValue = t;
+  float x = map(sd.soilMoistureValue, AirValue, WaterValue, 0, 100);
+  sd.soilMoisturePercentage = abs(x);
+  Serial.printf("X: %f", x);
+  Serial.println("");
+  Serial.printf("Moisture ADC: %f, Moisture Percentage: %f, vBat %f\n\n",
+                sd.soilMoistureValue, sd.soilMoisturePercentage, sd.vBat);
 }
