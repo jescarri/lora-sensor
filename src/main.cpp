@@ -7,6 +7,8 @@
 #include "lorawan.hpp"
 #include "lorawan_settings.hpp"
 #include "menu.hpp"
+#include <Adafruit_MAX1704X.h>
+#include <Wire.h>
 #include <hal/hal.h>
 
 #define VCC_ENA_PIN 13
@@ -15,6 +17,8 @@
 lmic_t SETTINGS_LMIC;
 Preferences lorawan_preferences;
 CayenneLPP lpp(MAX_PAYLOAD_SIZE);
+Adafruit_MAX17048 maxlipo;
+bool maxLipoFound = false;
 
 // Active in LOW, normal operation is HIGH
 bool startWebConfig = false;
@@ -49,9 +53,21 @@ void setup() {
   pinMode(START_WEB_CONFIG_PIN, INPUT);
   WiFi.mode(WIFI_OFF);
   btStop();
+
+  Wire.begin(21, 22);
+  delay(100);
   Serial.begin(115200);
   adc_power_acquire();
   randomSeed(analogRead(0));
+  // Init and Wake the Lipo Cel:
+  if (maxlipo.begin()) {
+    // Wake up the lipo gauge
+    maxlipo.wake();
+    maxLipoFound = true;
+  } else {
+    Serial.println("No MAX14048 found");
+  }
+
   lorawan_preferences_init();
   Serial.print("LMIC CONFIG Present: ");
   Serial.println(lorawanConfigPresent());
@@ -126,6 +142,8 @@ void PrintRuntime() {
 }
 
 void GoDeepSleep() {
+  // Turn off the lipo gauge:
+  maxlipo.hibernate();
   digitalWrite(VCC_ENA_PIN, LOW);
   WiFi.mode(WIFI_OFF);
   btStop();

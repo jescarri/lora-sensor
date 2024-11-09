@@ -1,5 +1,6 @@
 #include "lorawan.hpp"
 #include "lorawan_settings.hpp"
+#include <Adafruit_MAX1704X.h>
 
 static const u1_t PROGMEM DEVEUI[8] = TTN_DEVEUI;
 static const u1_t PROGMEM APPKEY[16] = TTN_APPKEY;
@@ -234,6 +235,9 @@ void do_send(osjob_t *j) {
   lpp.addGenericSensor(0, sd.soilMoistureValue);
   lpp.addVoltage(1, sd.vBat);
   lpp.addPercentage(2, sd.soilMoisturePercentage);
+  lpp.addSwitch(3, sd.lipoGaugeOk);
+  lpp.addPercentage(4, sd.batPercent);
+  lpp.addPercentage(5, sd.batRate);
   // Check if there is not a current TX/RX job running
   Serial.println("do_send");
   Serial.print("LMIC.opmode= ");
@@ -319,8 +323,21 @@ void os_getDevKey(u1_t *buf) {
 void ReadSensors() {
   sd.soilMoisturePercentage = 0;
   sd.soilMoistureValue = 0;
-  long r = random(3000, 4000);
-  sd.vBat = (float)r / 1000.0;
+  /*
+    bool lipoGaugeOk;
+    float vBat;
++   float batPercent;
++   float batRate;
+*/
+
+  sd.lipoGaugeOk = maxLipoFound;
+  if (maxLipoFound == true) {
+    sd.vBat = maxlipo.cellVoltage();
+    sd.batPercent = maxlipo.cellPercent();
+    sd.batRate = maxlipo.chargeRate();
+    Serial.print("----ChargeRate: ");
+    Serial.println(sd.batRate);
+  }
   for (int i = 0; i < MAX_SENSOR_READ; i++) {
     float a = analogRead(SOIL_SENSOR_PIN);
     sd.soilMoistureValue += a;
