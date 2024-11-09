@@ -14,13 +14,17 @@ const int WaterValue = 1100;
 #include <Arduino.h>
 #include <lmic.h>
 
+#include <Adafruit_MAX1704X.h>
 #include <CayenneLPP.h>
 #include <hal/hal.h>
 
 struct sensorData {
   float soilMoisturePercentage;
   float soilMoistureValue;
+  bool lipoGaugeOk;
   float vBat;
+  float batPercent;
+  float batRate;
 };
 
 extern const lmic_pinmap lmic_pins;
@@ -28,6 +32,8 @@ extern volatile bool enableSleep_;
 extern osjob_t sendjob;
 
 extern CayenneLPP lpp;
+extern bool maxLipoFound;
+extern Adafruit_MAX17048 maxlipo;
 
 void LoraWANPrintLMICOpmode(void);
 void LoraWANDebug(lmic_t lmic_check);
