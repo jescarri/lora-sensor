@@ -5939,7 +5939,7 @@
 			)
 		)
 	)
-	(global_label "GPIO_17"
+	(global_label "LED_DATA_PIN"
 		(shape input)
 		(at 212.09 36.83 90)
 		(fields_autoplaced yes)
@@ -5951,7 +5951,7 @@
 		)
 		(uuid "37bdd6f2-64a7-45bd-ba11-60208d65264d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 212.09 25.9829 90)
+			(at 212.09 20.8424 90)
 			(effects
 				(font
 					(size 1.27 1.27)

@@ -54,6 +54,9 @@ void initMenu() {
 }
 
 void startWebConf() {
+  leds[0] = CRGB::Red;
+  FastLED.show();
+
   initMenu();
   wifiManager.setConfigPortalTimeout(300);
   if (!wifiManager.startConfigPortal("lora-node")) {
@@ -68,8 +71,8 @@ void saveConfigCallback() {
   lorawan_preferences.putString("dev_eui", ttn_dev_eui->getValue());
   lorawan_preferences.putString("app_key", ttn_app_key->getValue());
   lorawan_preferences.putBool("ttn_otaa_config", true);
-
-  // ESP.restart();
+  leds[0] = CRGB::Green;
+  FastLED.show();
 }
 
 void configModeCallback(WiFiManager *myWiFiManager) {
