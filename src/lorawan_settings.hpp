@@ -1,6 +1,7 @@
 #ifndef LORAWAN_SETTINGS_HPP_
 #define LORAWAN_SETTINGS_HPP_
 #include "secrets/keys.hpp"
+#include <FastLED.h>
 #include <Preferences.h>
 #include <lmic.h>
 
@@ -19,6 +20,8 @@
 extern lmic_t SETTINGS_LMIC;
 extern Preferences lorawan_preferences;
 extern lmic_t LMIC;
+extern CRGB leds[1];
+
 void lorawan_preferences_init();
 void lmic_save();
 bool lmic_init_needed();

@@ -8,16 +8,20 @@
 #include "lorawan_settings.hpp"
 #include "menu.hpp"
 #include <Adafruit_MAX1704X.h>
+#include <FastLED.h>
 #include <Wire.h>
 #include <hal/hal.h>
 
 #define VCC_ENA_PIN 13
 #define START_WEB_CONFIG_PIN 16
+#define NUM_LEDS 1
+#define LED_DATA_PIN 17
 
 lmic_t SETTINGS_LMIC;
 Preferences lorawan_preferences;
 CayenneLPP lpp(MAX_PAYLOAD_SIZE);
 Adafruit_MAX17048 maxlipo;
+CRGB leds[NUM_LEDS];
 bool maxLipoFound = false;
 
 // Active in LOW, normal operation is HIGH
@@ -67,7 +71,8 @@ void setup() {
   } else {
     Serial.println("No MAX14048 found");
   }
-
+  FastLED.addLeds<WS2812B, LED_DATA_PIN, GRB>(leds, NUM_LEDS);
+  FastLED.setBrightness(50);
   lorawan_preferences_init();
   Serial.print("LMIC CONFIG Present: ");
   Serial.println(lorawanConfigPresent());
@@ -143,6 +148,8 @@ void PrintRuntime() {
 
 void GoDeepSleep() {
   // Turn off the lipo gauge:
+  leds[0] = CRGB::Black;
+  FastLED.show();
   maxlipo.hibernate();
   digitalWrite(VCC_ENA_PIN, LOW);
   WiFi.mode(WIFI_OFF);

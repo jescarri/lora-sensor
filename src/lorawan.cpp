@@ -132,6 +132,8 @@ void onEvent(ev_t ev) {
     break;
   case EV_JOINING:
     Serial.println(F("EV_JOINING"));
+    leds[0] = CRGB::DarkOrange;
+    FastLED.show();
     break;
   case EV_JOINED:
     Serial.println(F("EV_JOINED"));
@@ -160,6 +162,9 @@ void onEvent(ev_t ev) {
     // during join, but because slow data rates change max TX
     // size, we don't use it in this example.
     LMIC_setLinkCheckMode(0);
+    leds[0] = CRGB::Green;
+    FastLED.show();
+    delay(1000);
     break;
   case EV_JOIN_FAILED:
     Serial.println(F("EV_JOIN_FAILED"));

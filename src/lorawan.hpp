@@ -9,13 +9,14 @@
 #define MAX_SENSOR_READ 1
 
 #define SOIL_SENSOR_PIN 34 // ADC1_CH6
-const int AirValue = 2550;
-const int WaterValue = 1100;
+const int AirValue = 2200;
+const int WaterValue = 380;
 #include <Arduino.h>
 #include <lmic.h>
 
 #include <Adafruit_MAX1704X.h>
 #include <CayenneLPP.h>
+#include <FastLED.h>
 #include <hal/hal.h>
 
 struct sensorData {
@@ -30,6 +31,7 @@ struct sensorData {
 extern const lmic_pinmap lmic_pins;
 extern volatile bool enableSleep_;
 extern osjob_t sendjob;
+extern CRGB leds[1];
 
 extern CayenneLPP lpp;
 extern bool maxLipoFound;
