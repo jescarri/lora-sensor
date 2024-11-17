@@ -5,7 +5,7 @@ char char_ttn_app_eui[MAX_LORAWAN_CONF_CHAR_LEN];
 char char_ttn_dev_eui[MAX_LORAWAN_CONF_CHAR_LEN];
 char char_ttn_app_key[MAX_LORAWAN_CONF_CHAR_LEN];
 
-const char *menu[] = {"param"};
+const char *menu[] = {"param", "restart"};
 
 WiFiManager wifiManager;
 WiFiManagerParameter *ttn_app_eui;

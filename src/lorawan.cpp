@@ -2,8 +2,6 @@
 #include "lorawan_settings.hpp"
 #include <Adafruit_MAX1704X.h>
 
-static const u1_t PROGMEM DEVEUI[8] = TTN_DEVEUI;
-static const u1_t PROGMEM APPKEY[16] = TTN_APPKEY;
 sensorData sd;
 
 void LoraWANPrintLMICOpmode(void) {
