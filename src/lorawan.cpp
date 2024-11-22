@@ -2,8 +2,6 @@
 #include "lorawan_settings.hpp"
 #include <Adafruit_MAX1704X.h>
 
-static const u1_t PROGMEM DEVEUI[8] = TTN_DEVEUI;
-static const u1_t PROGMEM APPKEY[16] = TTN_APPKEY;
 sensorData sd;
 
 void LoraWANPrintLMICOpmode(void) {
@@ -234,7 +232,6 @@ void onEvent(ev_t ev) {
 }
 
 void do_send(osjob_t *j) {
-  static uint8_t mydata[] = "Test";
   lpp.reset();
   ReadSensors();
   lpp.addGenericSensor(0, sd.soilMoistureValue);
@@ -243,6 +240,10 @@ void do_send(osjob_t *j) {
   lpp.addSwitch(3, sd.lipoGaugeOk);
   lpp.addPercentage(4, sd.batPercent);
   lpp.addPercentage(5, sd.batRate);
+  lpp.addGenericSensor(6, get_calibration_air_value());
+  lpp.addGenericSensor(7, get_calibration_water_value());
+  lpp.addGenericSensor(8, get_sleep_time_seconds());
+
   // Check if there is not a current TX/RX job running
   Serial.println("do_send");
   Serial.print("LMIC.opmode= ");
@@ -254,7 +255,6 @@ void do_send(osjob_t *j) {
     LMIC_setTxData2(1, lpp.getBuffer(), lpp.getSize(), 0);
     Serial.println(F("Packet queued"));
   }
-  // Next TX is scheduled after TX_COMPLETE event.
 }
 
 // ToDo: Refactor hex string to u1_t array conversion
@@ -328,13 +328,6 @@ void os_getDevKey(u1_t *buf) {
 void ReadSensors() {
   sd.soilMoisturePercentage = 0;
   sd.soilMoistureValue = 0;
-  /*
-    bool lipoGaugeOk;
-    float vBat;
-+   float batPercent;
-+   float batRate;
-*/
-
   sd.lipoGaugeOk = maxLipoFound;
   if (maxLipoFound == true) {
     sd.vBat = maxlipo.cellVoltage();
@@ -350,7 +343,8 @@ void ReadSensors() {
   }
   float t = sd.soilMoistureValue / MAX_SENSOR_READ;
   sd.soilMoistureValue = t;
-  float x = map(sd.soilMoistureValue, AirValue, WaterValue, 0, 100);
+  float x = map(sd.soilMoistureValue, get_calibration_air_value(),
+                get_calibration_water_value(), 0, 100);
   sd.soilMoisturePercentage = abs(x);
   Serial.printf("X: %f", x);
   Serial.println("");

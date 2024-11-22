@@ -82,6 +82,10 @@ void setup() {
   bool otaa_cfg = lorawan_preferences.isKey("ttn_otaa_config");
   Serial.print("otaa_config_done: ");
   Serial.println(otaa_cfg);
+  Serial.print("Sleeping for: ");
+  Serial.print(get_sleep_time_seconds());
+  Serial.println(" seconds");
+
   if ((startWebConfig == true) || (!otaa_cfg)) {
     resetLmic();
     startWebConf();
@@ -148,6 +152,10 @@ void PrintRuntime() {
 
 void GoDeepSleep() {
   // Turn off the lipo gauge:
+  //
+  int sleepTime = get_sleep_time_seconds();
+  Serial.println("Going to DeepSleep for: ");
+  Serial.println(sleepTime);
   leds[0] = CRGB::Black;
   FastLED.show();
   maxlipo.hibernate();
@@ -176,6 +184,6 @@ void GoDeepSleep() {
   Serial.println(F("Go DeepSleep"));
   PrintRuntime();
   Serial.flush();
-  esp_sleep_enable_timer_wakeup(TX_INTERVAL * 1000000);
+  esp_sleep_enable_timer_wakeup(sleepTime * 1000000ull);
   esp_deep_sleep_start();
 }

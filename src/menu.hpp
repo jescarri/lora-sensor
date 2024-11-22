@@ -8,6 +8,7 @@
 
 #define CONFIG_TIMEOUT_SECONDS 120
 #define APP_EUID_LEN 17
+#define MAX_INT_STR_LEN 10
 
 extern Preferences lorawan_preferences;
 extern CRGB leds[1];

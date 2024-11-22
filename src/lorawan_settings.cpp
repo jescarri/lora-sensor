@@ -34,22 +34,26 @@ bool lorawanConfigPresent() {
   return lorawan_preferences.isKey(LORAWAN_CONFIG_PRESENT_KEY);
 }
 
-void saveDevEUID(char dev_euid[]) {
-  Serial.println("Savind device EUID");
-  lorawan_preferences.putString("dev_euid", dev_euid);
-}
-
-u1_t *getAppEUID() {
-  char appEUIDstr[50] = {};
-  strcpy(appEUIDstr, lorawan_preferences.getString("app_euid").c_str());
-  uint8_t len_buffer = 0;
-  static u1_t appEUID[8];
-  for (int i = 0; i < strlen(appEUIDstr); i += 2) {
-    char tmp = appEUIDstr[i + 3];
-    appEUIDstr[i + 3] = 0;
-    appEUID[len_buffer] = strtoul((const char *)appEUID, NULL, 16);
-    len_buffer++;
-    appEUIDstr[i + 3] = tmp;
+int get_calibration_air_value() {
+  if (lorawan_preferences.isKey("c_air_v")) {
+    return atoi(lorawan_preferences.getString("c_air_v").c_str());
+  } else {
+    return 0;
   }
-  return appEUID;
+}
+int get_calibration_water_value() {
+  if (lorawan_preferences.isKey("c_water_v")) {
+    return atoi(lorawan_preferences.getString("c_water_v").c_str());
+  } else {
+    return 0;
+  }
+}
+int get_sleep_time_seconds() {
+  if (lorawan_preferences.isKey("sleep_hours")) {
+    int x = atoi(lorawan_preferences.getString("sleep_hours").c_str());
+    if (x > 0) {
+      return x * 3600;
+    }
+  }
+  return 3600;
 }

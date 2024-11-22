@@ -1,6 +1,5 @@
 #ifndef LORAWAN_SETTINGS_HPP_
 #define LORAWAN_SETTINGS_HPP_
-#include "secrets/keys.hpp"
 #include <FastLED.h>
 #include <Preferences.h>
 #include <lmic.h>
@@ -28,8 +27,7 @@ bool lmic_init_needed();
 void load_lmic();
 void resetLmic();
 bool lorawanConfigPresent();
-
-void saveAppEUID(char app_euid[]);
-u1_t *getAppEUID();
-
+int get_calibration_air_value();
+int get_calibration_water_value();
+int get_sleep_time_seconds();
 #endif
