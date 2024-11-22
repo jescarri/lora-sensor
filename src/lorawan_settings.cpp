@@ -33,3 +33,27 @@ void resetLmic() { lorawan_preferences.remove(LMIC_BYTES_KEY_NAME); }
 bool lorawanConfigPresent() {
   return lorawan_preferences.isKey(LORAWAN_CONFIG_PRESENT_KEY);
 }
+
+int get_calibration_air_value() {
+  if (lorawan_preferences.isKey("c_air_v")) {
+    return atoi(lorawan_preferences.getString("c_air_v").c_str());
+  } else {
+    return 0;
+  }
+}
+int get_calibration_water_value() {
+  if (lorawan_preferences.isKey("c_water_v")) {
+    return atoi(lorawan_preferences.getString("c_water_v").c_str());
+  } else {
+    return 0;
+  }
+}
+int get_sleep_time_seconds() {
+  if (lorawan_preferences.isKey("sleep_hours")) {
+    int x = atoi(lorawan_preferences.getString("sleep_hours").c_str());
+    if (x > 0) {
+      return x * 3600;
+    }
+  }
+  return 3600;
+}

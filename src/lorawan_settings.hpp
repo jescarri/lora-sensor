@@ -27,4 +27,7 @@ bool lmic_init_needed();
 void load_lmic();
 void resetLmic();
 bool lorawanConfigPresent();
+int get_calibration_air_value();
+int get_calibration_water_value();
+int get_sleep_time_seconds();
 #endif
