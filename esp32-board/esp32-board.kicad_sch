@@ -5746,6 +5746,28 @@
 			)
 		)
 	)
+	(global_label "BAT_ALERT"
+		(shape input)
+		(at 35.56 44.45 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "02fefeeb-55a2-414f-a3f3-9cbf4b7b9ecb")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 48.3423 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "VCC_AUX_ENA"
 		(shape input)
 		(at 140.97 134.62 180)
@@ -5812,50 +5834,6 @@
 			)
 		)
 	)
-	(global_label "ESP_ENA"
-		(shape input)
-		(at 59.69 33.02 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "0ba86c2f-d27f-41bf-bdfb-ca7f1e20e7a8")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 70.8394 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "GPIO_12"
-		(shape input)
-		(at 59.69 50.8 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "1256b62d-8608-4d96-b70d-51f086a909e0")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 70.5371 50.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "LORA_MOSI"
 		(shape input)
 		(at 232.41 36.83 90)
@@ -5869,6 +5847,28 @@
 		(uuid "14918fd1-4c4a-48ac-9dee-da33d77e8c63")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 232.41 23.5638 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "GPIO_12"
+		(shape input)
+		(at 35.56 46.99 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1749d1b7-cda0-45c1-bef3-bb3697242194")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 46.4071 46.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5913,28 +5913,6 @@
 		(uuid "1d826f22-a038-4d9b-8909-0e5adc98051f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 217.17 23.5638 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "GPIO_15"
-		(shape input)
-		(at 59.69 53.34 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "1e5184ab-048c-421e-8c9b-8ebb8aaea3bb")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 70.5371 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6098,9 +6076,9 @@
 			)
 		)
 	)
-	(global_label "GPIO_17"
+	(global_label "GPIO_04"
 		(shape input)
-		(at 35.56 29.21 0)
+		(at 59.69 48.26 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -6108,9 +6086,9 @@
 			)
 			(justify left)
 		)
-		(uuid "3daae3b7-fdfb-44c4-b59d-466a3370a47b")
+		(uuid "3e2893e1-6952-46c4-bdb7-73e3f57dbf56")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 46.4071 29.21 0)
+			(at 70.5371 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6138,6 +6116,28 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "ESP_TX"
+		(shape input)
+		(at 59.69 35.56 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "437c7b4b-a194-4f59-864d-6f4511f9bdf1")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 69.4484 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -6208,6 +6208,50 @@
 			)
 		)
 	)
+	(global_label "SENSOR_VN"
+		(shape input)
+		(at 35.56 39.37 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "4e94c8d8-b7c3-43c0-b7ed-8402e40253f9")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 49.4309 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "GPIO35"
+		(shape input)
+		(at 35.56 41.91 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "52452082-8e0d-4c0d-ae5a-aa7bc4d2e5c3")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 45.4395 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "I2C_SDA"
 		(shape input)
 		(at 34.29 97.79 180)
@@ -6252,9 +6296,9 @@
 			)
 		)
 	)
-	(global_label "GPIO_04"
+	(global_label "I2C_SDA"
 		(shape input)
-		(at 59.69 48.26 0)
+		(at 59.69 40.64 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -6262,9 +6306,9 @@
 			)
 			(justify left)
 		)
-		(uuid "58b14661-eab2-4fdf-b2e0-e4573617a93d")
+		(uuid "59f7abe0-1b6b-49a6-bfa5-721f4f956fef")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 70.5371 48.26 0)
+			(at 70.2952 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6296,31 +6340,9 @@
 			)
 		)
 	)
-	(global_label "GPIO35"
-		(shape input)
-		(at 35.56 41.91 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "5e47589f-7600-4787-a8b3-d072cfa30d60")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 45.4395 41.91 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "VCC"
 		(shape input)
-		(at 59.69 38.1 0)
+		(at 35.56 31.75 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -6330,7 +6352,7 @@
 		)
 		(uuid "63bf19d9-fc53-44ec-b614-c7c596c5d959")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.3038 38.1 0)
+			(at 42.1738 31.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6364,7 +6386,7 @@
 	)
 	(global_label "GND"
 		(shape input)
-		(at 59.69 35.56 0)
+		(at 35.56 29.21 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -6374,7 +6396,29 @@
 		)
 		(uuid "65c9017c-a62d-424b-82db-1a23e3d00971")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.5457 35.56 0)
+			(at 42.4157 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "ESP_RX"
+		(shape input)
+		(at 59.69 38.1 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "66147561-4624-44d7-ba56-7ee9c4ba51cb")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 69.7508 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6540,7 +6584,7 @@
 	)
 	(global_label "START_WEB_CONFIG"
 		(shape input)
-		(at 59.69 43.18 0)
+		(at 59.69 45.72 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -6550,7 +6594,29 @@
 		)
 		(uuid "7c9fa1c2-2483-4b55-9275-264cbf317d1f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 80.8785 43.18 0)
+			(at 80.8785 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "LED_DATA_PIN"
+		(shape input)
+		(at 59.69 43.18 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "7e206a69-97d6-4c93-98b3-c6d3c0a3f284")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 75.6776 43.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6626,51 +6692,7 @@
 			)
 		)
 	)
-	(global_label "ESP_RX"
-		(shape input)
-		(at 242.57 99.06 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "9254a26f-3bbd-4cce-a0ab-f520a596ee13")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 252.0588 98.9806 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "SENSOR_VN"
-		(shape input)
-		(at 35.56 44.45 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "9683e640-bc6f-4fc1-9c82-aeee83585cfb")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 49.4309 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "ESP_PROG"
+	(global_label "GPIO23"
 		(shape input)
 		(at 59.69 30.48 0)
 		(fields_autoplaced yes)
@@ -6680,9 +6702,31 @@
 			)
 			(justify left)
 		)
-		(uuid "986f5858-5751-4ac4-b628-683265e482e6")
+		(uuid "8f0a3fba-a982-4ad9-8d73-12e2574e1528")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 72.4118 30.48 0)
+			(at 69.5695 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "ESP_RX"
+		(shape input)
+		(at 242.57 96.52 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "9254a26f-3bbd-4cce-a0ab-f520a596ee13")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 252.0588 96.4406 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6736,9 +6780,9 @@
 			)
 		)
 	)
-	(global_label "GPIO23"
+	(global_label "VCC_AUX"
 		(shape input)
-		(at 35.56 36.83 0)
+		(at 35.56 34.29 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -6746,9 +6790,9 @@
 			)
 			(justify left)
 		)
-		(uuid "99d008a0-569b-4fc0-948d-7d36bf9a2041")
+		(uuid "a076db66-b28f-437c-8188-9bbe117c5028")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 45.4395 36.83 0)
+			(at 46.77 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6824,6 +6868,28 @@
 			)
 		)
 	)
+	(global_label "I2C_SCL"
+		(shape input)
+		(at 59.69 33.02 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "afed4166-2a17-4a32-b8f5-96fac8b27a06")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 70.2347 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "ESP_RX"
 		(shape input)
 		(at 191.77 36.83 90)
@@ -6890,9 +6956,9 @@
 			)
 		)
 	)
-	(global_label "ESP_RX"
+	(global_label "ESP_PROG"
 		(shape input)
-		(at 35.56 52.07 0)
+		(at 59.69 50.8 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -6900,9 +6966,9 @@
 			)
 			(justify left)
 		)
-		(uuid "c9abbe4f-ad10-40f9-a848-543e05231b76")
+		(uuid "c8ba6eef-923c-4560-9f9e-00c1c7d9c4c6")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 45.6208 52.07 0)
+			(at 72.4118 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6936,7 +7002,7 @@
 	)
 	(global_label "VCC_AUX"
 		(shape input)
-		(at 59.69 40.64 0)
+		(at 71.12 40.64 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -6946,7 +7012,7 @@
 		)
 		(uuid "d5dbaacb-0704-434a-b845-2e51df8cf5c9")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 70.9 40.64 0)
+			(at 82.33 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6958,7 +7024,7 @@
 	)
 	(global_label "ESP_TX"
 		(shape input)
-		(at 242.57 96.52 0)
+		(at 242.57 99.06 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -6968,7 +7034,7 @@
 		)
 		(uuid "daf44db8-5654-4cec-b0e8-daee352cae03")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 251.7564 96.4406 0)
+			(at 251.7564 98.9806 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6991,6 +7057,28 @@
 		(uuid "de0809e6-fadd-4d71-b533-3ef179ec8787")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 219.71 26.2248 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "SENSOR_VP"
+		(shape input)
+		(at 35.56 36.83 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e005f091-5973-4fac-8c67-189aea2ede42")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 49.3704 36.83 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7066,6 +7154,28 @@
 			)
 		)
 	)
+	(global_label "ESP_ENA"
+		(shape input)
+		(at 35.56 52.07 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e57dbcf1-50b7-4c1c-98cf-2edcba313f66")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 46.1374 52.1494 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "I2C_SCL"
 		(shape input)
 		(at 34.29 92.71 180)
@@ -7084,28 +7194,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "BAT_ALERT"
-		(shape input)
-		(at 35.56 39.37 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "e9ad5b41-3263-4142-9105-8d49f68500a0")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 48.3423 39.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
 				(hide yes)
 			)
 		)
@@ -7154,6 +7242,28 @@
 			)
 		)
 	)
+	(global_label "GPIO_15"
+		(shape input)
+		(at 35.56 49.53 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "efa2faf8-5b4a-49df-91f0-0808cfb04bf0")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 46.4071 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "BAT_ALERT"
 		(shape input)
 		(at 93.98 95.25 0)
@@ -7167,28 +7277,6 @@
 		(uuid "f00a3c89-c66b-4a27-aa14-9f6cf12703fd")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 106.7623 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "GPIO02"
-		(shape input)
-		(at 59.69 45.72 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "f157371d-ab05-4329-8bff-e9d15b51e5cf")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 69.5695 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7220,28 +7308,6 @@
 			)
 		)
 	)
-	(global_label "ESP_TX"
-		(shape input)
-		(at 35.56 49.53 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "f21c6e96-ef93-44e0-a4d6-271629dfbe10")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 45.3184 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "ESP_ENA"
 		(shape input)
 		(at 242.57 101.6 0)
@@ -7264,9 +7330,9 @@
 			)
 		)
 	)
-	(global_label "I2C_SCL"
+	(global_label "GPIO02"
 		(shape input)
-		(at 35.56 34.29 0)
+		(at 59.69 53.34 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -7274,53 +7340,9 @@
 			)
 			(justify left)
 		)
-		(uuid "f7cf7565-3047-4a5b-96a7-04ed132dd9a9")
+		(uuid "fbf94f65-a93e-4741-9c4a-8cecf8b10749")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 46.1047 34.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "I2C_SDA"
-		(shape input)
-		(at 35.56 31.75 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "f8466a08-bc49-491d-9c67-2b0535e00280")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 46.1652 31.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "SENSOR_VP"
-		(shape input)
-		(at 35.56 46.99 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "fc0ce564-33a7-4142-9e5a-b2127a1ca14d")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 49.3704 46.99 0)
+			(at 69.5695 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8493,7 +8515,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_1812_4532Metric_Pad1.57x3.40mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 140.6652 185.42 0)
 			(effects
 				(font
@@ -9014,7 +9036,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "453afe05-9d8b-4cdb-b34f-20b38df52ecc")
-		(property "Reference" "SW1"
+		(property "Reference" "RESET1"
 			(at 132.08 100.3299 90)
 			(effects
 				(font
@@ -9068,7 +9090,7 @@
 		(instances
 			(project "esp32-board"
 				(path "/4fd41ff4-3e5f-46d5-b426-bec8bc670359"
-					(reference "SW1")
+					(reference "RESET1")
 					(unit 1)
 				)
 			)
@@ -9625,7 +9647,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_1812_4532Metric_Pad1.57x3.40mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 145.7452 105.41 0)
 			(effects
 				(font
@@ -9752,7 +9774,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "RESET"
+		(property "Value" "WEB_CONF"
 			(at 127 182.8799 90)
 			(effects
 				(font
