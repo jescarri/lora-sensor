@@ -5290,6 +5290,16 @@
 	)
 	(wire
 		(pts
+			(xy 116.84 125.73) (xy 116.84 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a93c6470-1f36-4339-9275-8eda64a710e8")
+	)
+	(wire
+		(pts
 			(xy 166.37 129.54) (xy 173.99 129.54)
 		)
 		(stroke
@@ -5652,6 +5662,16 @@
 		)
 		(uuid e73c7651-2130-4806-a5fc-742674d902d7)
 	)
+	(text "ceramic\nplace close"
+		(exclude_from_sim no)
+		(at 253.238 136.652 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "3c1ada64-bf33-4668-9eb6-ef6792854ce6")
+	)
 	(text "Config Reset"
 		(exclude_from_sim no)
 		(at 156.21 159.004 0)
@@ -5723,6 +5743,16 @@
 			)
 		)
 		(uuid "b9510e64-0457-466b-9b40-b8509fbd46be")
+	)
+	(text "ceramic\nplace close"
+		(exclude_from_sim no)
+		(at 180.34 134.62 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "fb4fe8a0-3ba0-4222-9994-7f493010fa76")
 	)
 	(global_label "SOIL_SENSOR"
 		(shape input)
@@ -7000,28 +7030,6 @@
 			)
 		)
 	)
-	(global_label "VCC_AUX"
-		(shape input)
-		(at 71.12 40.64 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "d5dbaacb-0704-434a-b845-2e51df8cf5c9")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 82.33 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "ESP_TX"
 		(shape input)
 		(at 242.57 99.06 0)
@@ -7508,7 +7516,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10uF"
+		(property "Value" "4.7uF"
 			(at 264.16 135.8899 0)
 			(effects
 				(font
@@ -9691,7 +9699,7 @@
 	)
 	(symbol
 		(lib_id "power:VCC")
-		(at 116.84 129.54 0)
+		(at 116.84 125.73 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9700,7 +9708,7 @@
 		(fields_autoplaced yes)
 		(uuid "5cddc36f-d169-41d1-8366-6ce795bd7244")
 		(property "Reference" "#PWR017"
-			(at 116.84 133.35 0)
+			(at 116.84 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9708,8 +9716,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "VCC"
-			(at 116.84 124.46 0)
+		(property "Value" "V_BAT"
+			(at 116.84 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9717,7 +9725,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 116.84 129.54 0)
+			(at 116.84 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9726,7 +9734,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 116.84 129.54 0)
+			(at 116.84 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9735,7 +9743,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"VCC\""
-			(at 116.84 129.54 0)
+			(at 116.84 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10855,7 +10863,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10uF"
+		(property "Value" "4.7uF"
 			(at 168.91 131.064 0)
 			(effects
 				(font
